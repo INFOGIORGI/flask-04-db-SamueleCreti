@@ -67,3 +67,8 @@ table td a {
 table td a:hover {
     text-decoration: underline;
 }
+
+h1 {
+    display: inline-block;
+    padding-left: 20px;
+}
