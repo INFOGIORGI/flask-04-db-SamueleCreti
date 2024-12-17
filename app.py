@@ -32,22 +32,21 @@ def products():
 
     return render_template("products.html", titolo="Products", dati=dati)
 
-@app.route("/categories/<categoryID>")
+@app.route("/categories/<int:categoryID>")  #devo castare ad int il categoryID della route
 def categories(categoryID):
     #Creazione cursore e interrogazione al Database
     cursor = mysql.connection.cursor()
-    query = "SELECT * FROM products"
+    query = "SELECT * FROM categories"
     
     #Il cursore esegue la query
     cursor.execute(query)
 
     #Il risultato della query viene memorizzato in una tupla di tuple chiamata dati
     dati = cursor.fetchall()
-    print(dati)
     
     l=[]
     for i in dati:
-        if i[3] == categoryID:
+        if int(i[0]) == categoryID:
             l.append(i)
 
     cursor.close()
