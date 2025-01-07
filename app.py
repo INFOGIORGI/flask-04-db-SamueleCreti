@@ -32,25 +32,21 @@ def products():
 
     return render_template("products.html", titolo="Products", dati=dati)
 
-@app.route("/categories/<int:categoryID>")  #devo castare ad int il categoryID della route
+@app.route("/categories/<categoryID>")  #devo castare ad int il categoryID della route
 def categories(categoryID):
     #Creazione cursore e interrogazione al Database
     cursor = mysql.connection.cursor()
-    query = "SELECT * FROM categories"
+    print(type(categoryID))
+    query = "SELECT * FROM categories WHERE CategoryID=?"
     
     #Il cursore esegue la query
-    cursor.execute(query)
+    cursor.execute(query,(categoryID,))
 
     #Il risultato della query viene memorizzato in una tupla di tuple chiamata dati
     dati = cursor.fetchall()
-    
-    l=[]
-    for i in dati:
-        if int(i[0]) == categoryID:
-            l.append(i)
 
     cursor.close()
-    return render_template("categories.html", titolo="Categories", categoryID=categoryID, l=l)
+    return render_template("categories.html", titolo="Categories", categoryID=categoryID, l=dati)
 
 if __name__ == '__main__': 
     app.run(debug=True)
