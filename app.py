@@ -37,7 +37,7 @@ def categories(categoryID):
     #Creazione cursore e interrogazione al Database
     cursor = mysql.connection.cursor()
     print(type(categoryID))
-    query = "SELECT * FROM categories WHERE CategoryID=?"
+    query = "SELECT * FROM categories WHERE CategoryID = %s"
     
     #Il cursore esegue la query
     cursor.execute(query,(categoryID,))
